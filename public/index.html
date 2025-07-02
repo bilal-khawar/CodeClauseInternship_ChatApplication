@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Left sidebar -->
+    <div class="sidebar">
+      <h2>Users</h2>
+      <ul id="user-list">
+        <!-- Users will be dynamically added here -->
+      </ul>
+    </div>
+
+    <!-- Main chat area -->
+    <div class="chat-section">
+      <div id="chat-header">WhatsApp Chat Clone</div>
+      <div id="chat-box"></div>
+      <form id="chat-form">
+        <input id="msg" type="text" placeholder="Type a message" required autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
