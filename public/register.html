@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register - ChatApp</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Register New User</h2>
+    <form id="register-form">
+      <input type="text" id="new-username" placeholder="Choose a username" required />
+      <input type="password" id="new-password" placeholder="Choose a password" required />
+      <button type="submit" style="margin-left: 0;">Register</button>
+    </form>
+    <p style="margin-top: 15px;"><a href="login.html">Back to Login</a></p>
+  </div>
+
+    <script>
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.getElementById('new-username').value.trim();
+        const password = document.getElementById('new-password').value.trim();
+
+        const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+        Toastify({
+            text: "Registration successful! Redirecting to login...",
+            duration: 3000,
+            gravity: "top",
+            position: "center",
+            backgroundColor: "#4caf50",
+        }).showToast();
+        setTimeout(() => window.location.href = "login.html", 3000);
+        } else {
+        Toastify({
+            text: data.message || "Registration failed.",
+            duration: 3000,
+            gravity: "top",
+            position: "center",
+            backgroundColor: "#ff4d4d",
+        }).showToast();
+        }
+    });
+    </script>
+
+</body>
+</html>

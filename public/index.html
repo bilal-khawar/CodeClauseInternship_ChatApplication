@@ -3,31 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chat App</title>
+  <title>ChatApp</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
   <div class="container">
-    <!-- Left sidebar -->
     <div class="sidebar">
-      <h2>Users</h2>
+      <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+        <h2>Chats</h2>
+        <button id="create-group-btn" class="create-group-btn">+ Create Group</button>
+      </div>
       <ul id="user-list">
-        <!-- Users will be dynamically added here -->
+        <!-- Users & groups will be added dynamically -->
       </ul>
     </div>
 
-    <!-- Main chat area -->
+    <!-- Chat Section -->
     <div class="chat-section">
-      <div id="chat-header">WhatsApp Chat Clone</div>
+      <div id="chat-header">Welcome, <span id="chat-username"></span></div>
       <div id="chat-box"></div>
       <form id="chat-form">
-        <input id="msg" type="text" placeholder="Type a message" required autocomplete="off" />
+        <input id="msg" type="text" placeholder="Type a message..." required autocomplete="off" />
         <button type="submit">Send</button>
       </form>
     </div>
+
+    <!-- Logout -->
+    <button id="logout-btn" style="position:absolute; top:10px; right:10px;">Logout</button>
   </div>
 
+  <!-- Group Creation Modal -->
+  <div id="group-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2 style="margin-bottom: 25px;">Create Group</h3>
+      <div class="name-div" style="width: 100%;">
+        <label for="group-name" style="margin-bottom: 30px;">Group Name:</label>
+        <input type="text" id="group-name" placeholder="Enter group name" />
+      </div>
+
+      <div class="friends-div" style="width: 100%; margin-top: 5%;">
+        <label for="friend-checkboxes" style="margin-bottom: 20px;">Select Friends:</label>
+        <div id="friend-checkboxes" style="width: 100%;">
+          <!-- Checkboxes will be populated dynamically -->
+        </div>
+      </div>
+      <div class="btn-div" style="width:100%; display: flex; justify-content: space-evenly; margin-top: 20px;">
+        <button id="submit-group-btn">Create</button>
+        <button id="cancel-group-btn" style="background-color: rgb(162, 0, 0);">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ✅ Scripts loaded AFTER DOM -->
   <script src="/socket.io/socket.io.js"></script>
+  <script src="users.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="main.js"></script>
 </body>
 </html>

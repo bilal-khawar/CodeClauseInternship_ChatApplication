@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - ChatApp</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Welcome to ChatApp</h2>
+    <form id="login-form">
+      <input type="text" id="username" placeholder="Enter your username" required />
+      <input type="password" id="password" placeholder="Enter your password" required />
+      <button type="submit">Enter Chat</button>
+      <p style="margin-top: 15px;">Don't have an account? <a href="register.html">Register here</a></p>
+    </form>
+  </div>
+
+  <script src="users.js"></script>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await res.json();
+      if (!data.success) {
+        Toastify({
+          text: data.message || "Login failed",
+          duration: 3000,
+          gravity: "top",
+          position: "center",
+          backgroundColor: "#ff4d4d",
+        }).showToast();
+        return;
+      }
+
+      sessionStorage.setItem('username', username);
+      window.location.href = 'index.html';
+    });
+  </script>
+
+
+
+
+  <style>
+    button{
+        margin-left: 0;
+    }
+  </style>
+</body>
+</html>
